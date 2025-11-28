@@ -16,7 +16,6 @@ CREATE TABLE usuario(
     telefone varchar(11),
     genero varchar(9),
     identificador varchar(18),
-    senha varchar(12),
     venda_id INT,
     FOREIGN KEY (venda_id) REFERENCES vendas(id)
 );

@@ -36,7 +36,7 @@ public class Venda {
     }
 
    public void registrarVenda(Produto produto, Cliente cliente){
-       String sql = "UPDATE clientes SET venda_id = ? WHERE id = ?";
+       String sql = "UPDATE usuario SET venda_id = ? WHERE id = ?";
 
        try {
            Connection conn = Conexao.getConnection();
