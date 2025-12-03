@@ -20,7 +20,7 @@ public class Venda {
         this.data = data;
     }
 
-    public static double getLucro() {
+    public double getLucro() {
         return lucro;
     }
 
@@ -42,7 +42,7 @@ public class Venda {
            Connection conn = Conexao.getConnection();
            PreparedStatement pstm = conn.prepareStatement(sql);
 
-           pstm.setInt(1, produto.getId());
+           pstm.setInt(1, produto.getIdProd());
            pstm.setInt(2, cliente.getId());
 
            pstm.executeUpdate();

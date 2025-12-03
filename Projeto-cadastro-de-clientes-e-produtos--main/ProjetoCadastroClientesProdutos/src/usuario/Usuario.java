@@ -18,7 +18,7 @@ public class Usuario{
     private String email;
     private String senha1;
     private String senha2;
-    private int telefone;
+    private String telefone;
     private TipoA tipo;
     private String identificador;
     private Gen genero;
@@ -26,6 +26,7 @@ public class Usuario{
     private String rua;
     private String cidade;
     private est estado;
+    private String estado2;
     private String cep;
 
     public int getId() {
@@ -70,10 +71,10 @@ public class Usuario{
         this.senha2 = senha2;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -127,6 +128,13 @@ public class Usuario{
         this.estado = estado;
     }
 
+    public String getEstado2() {
+        return estado2;
+    }
+    public void setEstado2(String estado2) {
+        this.estado2 = estado2;
+    }
+
     public String getCep() {
         return cep;
     }
@@ -135,17 +143,83 @@ public class Usuario{
     }
 
     public void armazenarGenero() {
-        if (genero == Gen.MASCULINO) {
-            gen = "Masculino";
-        } else if (genero == Gen.FEMININO) {
-            gen = "Feminino";
-        } else if (genero == Gen.OUTROS) {
-            gen = "Outros";
+        switch (genero) {
+            case MASCULINO:
+                gen = "Masculino";
+                break;
+
+            case FEMININO:
+                gen = "Feminino";
+                break;
+
+            case OUTROS:
+                gen = "Outros";
+                break;
+        }
+    }
+
+    public void armazenarEstado() {
+        switch (estado) {
+            case AC:
+                estado2 = "AC";
+            case AL:
+                estado2 = "AL";
+            case AP:
+                estado2 = "AP";
+            case AM:
+                estado2 = "AM";
+            case BA:
+                estado2 = "BA";
+            case CE:
+                estado2 = "CE";
+            case DF:
+                estado2 = "DF";
+            case ES:
+                estado2 = "ES";
+            case GO:
+                estado2 = "GO";
+            case MA:
+                estado2 = "MA";
+            case MT:
+                estado2 = "MT";
+            case MS:
+                estado2 = "MS";
+            case MG:
+                estado2 = "MG";
+            case PA:
+                estado2 = "PA";
+            case PB:
+                estado2 = "PB";
+            case PR:
+                estado2 = "PR";
+            case PE:
+                estado2 = "PE";
+            case PI:
+                estado2 = "PI";
+            case RJ:
+                estado2 = "RJ";
+            case RN:
+                estado2 = "RN";
+            case RS:
+                estado2 = "RS";
+            case RO:
+                estado2 = "RO";
+            case RR:
+                estado2 = "RR";
+            case SC:
+                estado2 = "SC";
+            case SP:
+                estado2 = "SP";
+            case SE:
+                estado2 = "SE";
+            case TO:
+                estado2 = "TO";
         }
     }
 
     public boolean confirmarSenha() {
         return senha1.equals(senha2);
     }
+
 }
 
