@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.Conexao;
-import usuario.Usuario;
 
 public class GerenciaCliente {
     private Connection conn;
@@ -35,7 +34,7 @@ public class GerenciaCliente {
             stmtClientes.close();
 
             String sqlEndereco = "INSERT INTO endereco(rua, cidade, estado, cep) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmtEndereco = conn.prepareStatement(sql);
+            PreparedStatement stmtEndereco = conn.prepareStatement(sqlEndereco);
             stmtEndereco.setString(1, cliente.getRua());
             stmtEndereco.setString(2, cliente.getCidade());
             stmtEndereco.setString(3, cliente.getEstado2());
@@ -52,21 +51,21 @@ public class GerenciaCliente {
         List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
         try {
-            Statement stmt = conn.createStatement();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setIdade(rs.getInt("idade"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setGen(rs.getString("genero"));
-                cliente.setIdentificador(rs.getString("identificador"));
-                cliente.setStatus2(rs.getString("status"));
-                cliente.setObservacao(rs.getString("observacao"));
-                cliente.setNivel2(rs.getString("nivel"));
-                lista.add(cliente);
+                Cliente Cliente = new Cliente();
+                Cliente.setId(rs.getInt("id"));
+                Cliente.setNome(rs.getString("nome"));
+                Cliente.setIdade(rs.getInt("idade"));
+                Cliente.setEmail(rs.getString("email"));
+                Cliente.setTelefone(rs.getString("telefone"));
+                Cliente.setGen(rs.getString("genero"));
+                Cliente.setIdentificador(rs.getString("identificador"));
+                Cliente.setStatus2(rs.getString("status"));
+                Cliente.setObservacao(rs.getString("observacao"));
+                Cliente.setNivel2(rs.getString("nivel"));
+                lista.add(Cliente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,15 +78,15 @@ public class GerenciaCliente {
         String sql = "UPDATE clientes SET nome = ?, idade = ?, email = ?, telefone = ?, genero = ?, identificador = ?, status = ?, observacao = ?,  nivel = ? WHERE id = ?";
         try{
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,cliente.getNome());
-            stmt.setInt(2,cliente.getIdade());
-            stmt.setString(3,cliente.getEmail());
-            stmt.setString(4,cliente.getTelefone());
-            stmt.setString(5,cliente.getGen());
-            stmt.setString(6,cliente.getIdentificador());
-            stmt.setString(7,cliente.getStatus2());
-            stmt.setString(8,cliente.getObservacao());
-            stmt.setString(9,cliente.getNivel2());
+            stmt.setString(1, cliente.getNome());
+            stmt.setInt(2, cliente.getIdade());
+            stmt.setString(3, cliente.getEmail());
+            stmt.setString(4, cliente.getTelefone());
+            stmt.setString(5, cliente.getGen());
+            stmt.setString(6, cliente.getIdentificador());
+            stmt.setString(7, cliente.getStatus2());
+            stmt.setString(8, cliente.getObservacao());
+            stmt.setString(9, cliente.getNivel2());
             stmt.setInt(10, cliente.getId());
             stmt.executeUpdate();
             stmt.close();
@@ -96,7 +95,7 @@ public class GerenciaCliente {
             PreparedStatement stmtEndereco = conn.prepareStatement(sqlEndereco);
             stmtEndereco.setString(1, cliente.getRua());
             stmtEndereco.setString(2, cliente.getCidade());
-            stmtEndereco.setString(3,cliente.getEstado2());
+            stmtEndereco.setString(3, cliente.getEstado2());
             stmtEndereco.setString(4, cliente.getCep());
             stmtEndereco.setInt(5, cliente.getId());
             stmtEndereco.executeUpdate();
@@ -117,6 +116,36 @@ public class GerenciaCliente {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    //Método para buscar cliente pelo nome
+    public List<Cliente> buscarCliente(String nomeBuscado){
+        List<Cliente> lista = new ArrayList<>();
+        String sql = "SELECT * FROM clientes WHERE nome LIKE ?";
+        try{
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nomeBuscado + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setIdade(rs.getInt("idade"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setGen(rs.getString("genero"));
+                cliente.setIdentificador(rs.getString("identificador"));
+                cliente.setStatus2(rs.getString("status"));
+                cliente.setObservacao(rs.getString("observacao"));
+                cliente.setNivel2(rs.getString("nivel"));
+                lista.add(cliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }
 

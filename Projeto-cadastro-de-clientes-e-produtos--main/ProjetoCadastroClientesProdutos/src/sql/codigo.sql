@@ -43,7 +43,7 @@ CREATE TABLE produtos (
     custoProducao double NOT NULL,
     categoria varchar(50) NOT NULL,
     tamanhho double,
-    fornecedores varchar(200) NOT NULL,
+    fornecedor varchar(200) NOT NULL,
     descricao varchar(500) NOT NULL
 );
 
